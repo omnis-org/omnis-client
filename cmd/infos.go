@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"time"
 
 	"omnis-client/core"
@@ -33,7 +34,7 @@ func gatherInfos(cmd *cobra.Command, args []string) error {
 		return err
 	}
 	log.Info(result)
-	log.Info("Scan execution time: %s", time.Since(begin))
+	log.Info(fmt.Sprintf("Scan execution time: %s", time.Since(begin)))
 	formatting.ExportJSON(result)
 	return nil
 }

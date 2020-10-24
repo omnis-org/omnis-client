@@ -1,0 +1,4 @@
+[] Creer petit serveur ecoutant sur une adresse
+[] Creer petit POC de client qui remonte juste son hostname - IP
+[] Display des infos remontes par le serveur
+[] Reprendre ou abandonner le scan de ports ouverts car trop de ping (fetch network infos) (utiliser netstat)

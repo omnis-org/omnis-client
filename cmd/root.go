@@ -19,7 +19,7 @@ var rootCmd = &cobra.Command{
 	Use:   "omnis",
 	Short: "client for Omnis - Cartography solution made by ENSIBS student",
 	Long: `
-	____             _   
+	 ____             _   
 	/ __ \__ _  ___  (_)__
    / /_/ /  ' \/ _ \/ (_-<
    \____/_/_/_/_//_/_/___/
@@ -71,7 +71,4 @@ func setupLogs(out io.Writer, level string) error {
 	}
 	logrus.SetLevel(lvl)
 	return nil
-}
-
-func init() {
 }
