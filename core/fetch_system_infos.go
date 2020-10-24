@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"strconv"
 	"strings"
 
 	log "github.com/sirupsen/logrus"
@@ -26,7 +27,7 @@ func GetKernelInformation() ([]string, error) {
 	osStr = strings.Replace(osStr, "\r\n", "", -1)
 	osInfo := strings.Split(osStr, " ")
 	osInfo = append(osInfo, runtime.GOOS)
-	osInfo = append(osInfo, string(runtime.NumCPU()))
+	osInfo = append(osInfo, strconv.Itoa(runtime.NumCPU()))
 	log.Info("OS: ", osInfo[0])
 	log.Info("Core: ", osInfo[1])
 	log.Info("Platform: ", osInfo[2])

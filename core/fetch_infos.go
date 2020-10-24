@@ -3,8 +3,10 @@ package core
 import (
 	"context"
 	"sync"
+	"time"
 
 	log "github.com/sirupsen/logrus"
+	"golang.org/x/sync/semaphore"
 )
 
 type Gatherer struct {
@@ -34,7 +36,7 @@ func NewGatherer() *Gatherer {
 }
 
 func (g Gatherer) GatherMachineInfos(ctx context.Context) (Output, error) {
-	interfaces, err := localAddresses()
+	interfaces, err := localInterfaces()
 	if err != nil {
 		return Output{}, err
 	}
@@ -50,6 +52,12 @@ func (g Gatherer) GatherMachineInfos(ctx context.Context) (Output, error) {
 		return Output{}, err
 	}
 
+	ps := &PortScanner{
+		ip:   "127.0.0.1",
+		lock: semaphore.NewWeighted(Ulimit()),
+	}
+	openports := ps.Start(ctx, 1, 65535, 500*time.Millisecond)
+
 	o := Output{
 		OS:          osInfo[0],
 		HostName:    machineHostname,
@@ -58,7 +66,7 @@ func (g Gatherer) GatherMachineInfos(ctx context.Context) (Output, error) {
 		GoOsVersion: osInfo[3],
 		CPU:         osInfo[4],
 		Interfaces:  interfaces,
-		OpenPorts:   nil,
+		OpenPorts:   openports,
 	}
 	g.safeData.Add(o)
 	return g.safeData.out, nil

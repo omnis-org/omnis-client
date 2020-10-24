@@ -52,7 +52,7 @@ func Execute() {
 	go func() {
 		select {
 		case <-sigs:
-			log.Warn("\n[!] Keyboard interrupt detected, cleaning up before terminating.")
+			log.Warn("[!] Keyboard interrupt detected, cleaning up before terminating.")
 			cancel()
 		case <-ctx.Done():
 		}
