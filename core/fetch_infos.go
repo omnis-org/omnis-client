@@ -3,6 +3,8 @@ package core
 import (
 	"context"
 	"sync"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type Gatherer struct {
@@ -36,11 +38,27 @@ func (g Gatherer) GatherMachineInfos(ctx context.Context) (Output, error) {
 	if err != nil {
 		return Output{}, err
 	}
+
+	machineHostname, err := GetMachineHostName()
+	if err != nil {
+		return Output{}, err
+	}
+	log.Info(machineHostname)
+
+	osInfo, err := GetKernelInformation()
+	if err != nil {
+		return Output{}, err
+	}
+
 	o := Output{
-		OS:         "",
-		HostName:   "",
-		Interfaces: interfaces,
-		OpenPorts:  nil,
+		OS:          osInfo[0],
+		HostName:    machineHostname,
+		Core:        osInfo[1],
+		Platform:    osInfo[2],
+		GoOsVersion: osInfo[3],
+		CPU:         osInfo[4],
+		Interfaces:  interfaces,
+		OpenPorts:   nil,
 	}
 	g.safeData.Add(o)
 	return g.safeData.out, nil
