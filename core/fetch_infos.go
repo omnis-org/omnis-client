@@ -57,6 +57,7 @@ func (g Gatherer) GatherMachineInfos(ctx context.Context) (Output, error) {
 		lock: semaphore.NewWeighted(Ulimit()),
 	}
 	openports := ps.Start(ctx, 1, 65535, 500*time.Millisecond)
+	log.Info(openports)
 
 	o := Output{
 		OS:          osInfo[0],

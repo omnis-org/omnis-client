@@ -3,7 +3,7 @@ package core
 // Output structure to gather machine infos
 type Output struct {
 	OS          string      `json:"os"`
-	HostName    string      `json:"endpoint"`
+	HostName    string      `json:"hostname"`
 	Platform    string      `json:"platform"`
 	Core        string      `json:"core"`
 	GoOsVersion string      `json:"GOOSVersion"`

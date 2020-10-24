@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"omnis-client/core"
+	"omnis-client/userside/formatting"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -33,5 +34,6 @@ func gatherInfos(cmd *cobra.Command, args []string) error {
 	}
 	log.Info(result)
 	log.Info("Scan execution time: %s", time.Since(begin))
+	formatting.ExportJSON(result)
 	return nil
 }
