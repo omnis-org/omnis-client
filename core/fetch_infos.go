@@ -41,16 +41,15 @@ func (g Gatherer) GatherMachineInfos(ctx context.Context) (Output, error) {
 		return Output{}, err
 	}
 
-	machineHostname, err := GetMachineHostName()
+	systemInfo, err := GetKernelInformation()
 	if err != nil {
 		return Output{}, err
 	}
-	log.Info(machineHostname)
-
-	osInfo, err := GetKernelInformation()
-	if err != nil {
-		return Output{}, err
-	}
+	log.Info("OS: ", systemInfo.OS)
+	log.Info("Core: ", systemInfo.Core)
+	log.Info("Platform: ", systemInfo.Platform)
+	log.Info("GoOs: ", systemInfo.GoOsVersion)
+	log.Info("CPUs: ", systemInfo.CPU)
 
 	ps := &PortScanner{
 		ip:   "127.0.0.1",
@@ -59,15 +58,14 @@ func (g Gatherer) GatherMachineInfos(ctx context.Context) (Output, error) {
 	openports := ps.Start(ctx, 1, 65535, 500*time.Millisecond)
 	log.Info(openports)
 
+	netInfo := NetworkInformation{
+		Interfaces: interfaces,
+		OpenPorts:  openports,
+	}
+
 	o := Output{
-		OS:          osInfo[0],
-		HostName:    machineHostname,
-		Core:        osInfo[1],
-		Platform:    osInfo[2],
-		GoOsVersion: osInfo[3],
-		CPU:         osInfo[4],
-		Interfaces:  interfaces,
-		OpenPorts:   openports,
+		SystemInformation:  systemInfo,
+		NetworkInformation: netInfo,
 	}
 	g.safeData.Add(o)
 	return g.safeData.out, nil

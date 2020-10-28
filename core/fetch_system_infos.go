@@ -15,7 +15,7 @@ func GetMachineHostName() (string, error) {
 	return os.Hostname()
 }
 
-func GetKernelInformation() ([]string, error) {
+func GetKernelInformation() (SystemInformation, error) {
 	cmd := exec.Command("uname", "-srm")
 	var out bytes.Buffer
 	cmd.Stdout = &out
@@ -26,12 +26,17 @@ func GetKernelInformation() ([]string, error) {
 	osStr := strings.Replace(out.String(), "\n", "", -1)
 	osStr = strings.Replace(osStr, "\r\n", "", -1)
 	osInfo := strings.Split(osStr, " ")
-	osInfo = append(osInfo, runtime.GOOS)
-	osInfo = append(osInfo, strconv.Itoa(runtime.NumCPU()))
-	log.Info("OS: ", osInfo[0])
-	log.Info("Core: ", osInfo[1])
-	log.Info("Platform: ", osInfo[2])
-	log.Info("GoOs: ", osInfo[3])
-	log.Info("CPUs: ", osInfo[4])
-	return osInfo, nil
+	hostname, err := GetMachineHostName()
+	if err != nil {
+		return SystemInformation{}, err
+	}
+	sysInfo := SystemInformation{
+		OS:          osInfo[0],
+		HostName:    hostname,
+		Platform:    osInfo[2],
+		Core:        osInfo[1],
+		GoOsVersion: runtime.GOOS,
+		CPU:         strconv.Itoa(runtime.NumCPU()),
+	}
+	return sysInfo, nil
 }
