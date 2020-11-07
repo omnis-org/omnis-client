@@ -2,15 +2,17 @@ package core
 
 import (
 	"context"
+	"encoding/json"
+	"omnis-client/internal"
 	"sync"
 	"time"
 
-	log "github.com/sirupsen/logrus"
 	"golang.org/x/sync/semaphore"
 )
 
 type Gatherer struct {
 	safeData *SafeData
+	Fetcher  IFetcher
 }
 
 type SafeData struct {
@@ -28,10 +30,15 @@ type IGatherer interface {
 	GatherMachineInfos() (Output, error)
 }
 
-func NewGatherer() *Gatherer {
+type IFetcher interface {
+	Post(IP string, body []byte) (*internal.HTTPResponse, error)
+}
+
+func NewGatherer(fetcher IFetcher) *Gatherer {
 	safeData := new(SafeData)
 	return &Gatherer{
 		safeData: safeData,
+		Fetcher:  fetcher,
 	}
 }
 
@@ -45,18 +52,12 @@ func (g Gatherer) GatherMachineInfos(ctx context.Context) (Output, error) {
 	if err != nil {
 		return Output{}, err
 	}
-	log.Info("OS: ", systemInfo.OS)
-	log.Info("Core: ", systemInfo.Core)
-	log.Info("Platform: ", systemInfo.Platform)
-	log.Info("GoOs: ", systemInfo.GoOsVersion)
-	log.Info("CPUs: ", systemInfo.CPU)
 
 	ps := &PortScanner{
 		ip:   "127.0.0.1",
 		lock: semaphore.NewWeighted(Ulimit()),
 	}
 	openports := ps.Start(ctx, 1, 65535, 500*time.Millisecond)
-	log.Info(openports)
 
 	netInfo := NetworkInformation{
 		Interfaces: interfaces,
@@ -69,4 +70,23 @@ func (g Gatherer) GatherMachineInfos(ctx context.Context) (Output, error) {
 	}
 	g.safeData.Add(o)
 	return g.safeData.out, nil
+}
+
+func (g Gatherer) SendInfos(serverIP string, o Output) (*internal.HTTPResponse, error) {
+	requestBody, err := json.Marshal(o)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := g.Fetcher.Post(serverIP, requestBody)
+
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+// TODO : Function that create a single file with an int ID of the machine
+func CreateIDFile(i int) {
+
 }

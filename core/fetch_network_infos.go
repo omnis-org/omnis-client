@@ -64,14 +64,12 @@ func Ulimit() int64 {
 	if err != nil {
 		log.Panic(err)
 	}
-
 	s := strings.TrimSpace(string(out))
 
 	i, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
 		log.Panic(err)
 	}
-
 	return i
 }
 
