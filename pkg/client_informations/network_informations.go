@@ -1,6 +1,7 @@
 package client_informations
 
 import (
+	"fmt"
 	"net"
 
 	log "github.com/sirupsen/logrus"
@@ -11,14 +12,14 @@ func getInterfaceInformations() ([]InterfaceInformations, error) {
 
 	itfs, err := net.Interfaces()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("net.Interfaces failed <- %v", err)
 	}
 
 	for _, itf := range itfs {
 
 		addrs, err := itf.Addrs()
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("itf.Addrs failed <- %v", err)
 		}
 
 		var ip net.IP
@@ -43,7 +44,7 @@ func getInterfaceInformations() ([]InterfaceInformations, error) {
 
 			gateways, err := getGateways(itf.Name)
 			if err != nil {
-				log.Error(err)
+				log.Warn(err)
 			}
 
 			maskN, _ = mask.Size()
@@ -59,7 +60,7 @@ func getInterfaceInformations() ([]InterfaceInformations, error) {
 func GetNetworkInformations() (*NetworkInformations, error) {
 	interfaces, err := getInterfaceInformations()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("getInterfaceInformations failed <- %v", err)
 	}
 
 	networkInformations := NetworkInformations{interfaces}

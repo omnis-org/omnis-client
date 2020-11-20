@@ -1,51 +1,62 @@
 package main
 
 import (
-	"github.com/omnis-org/omnis-client/config"
-	"github.com/omnis-org/omnis-client/internal/net"
-	"github.com/omnis-org/omnis-client/internal/version"
-	"github.com/omnis-org/omnis-client/pkg/client_informations"
 	"os"
 	"path/filepath"
 	"time"
 
+	"github.com/omnis-org/omnis-client/config"
+	"github.com/omnis-org/omnis-client/internal/net"
+	"github.com/omnis-org/omnis-client/internal/version"
+	"github.com/omnis-org/omnis-client/pkg/client_informations"
+
+	nested "github.com/antonfisher/nested-logrus-formatter"
 	log "github.com/sirupsen/logrus"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 
-func main() {
-	cfgCmdLine := struct {
-		configFile string
-	}{}
-
+func init() {
 	cmdLine := kingpin.New(filepath.Base(os.Args[0]), "omnis-client")
 	cmdLine.Version(version.BuildVersion)
 	cmdLine.HelpFlag.Short('h')
-	cmdLine.Flag("config.file", "Omnis configuration file path").Default("omnis.json").StringVar(&cfgCmdLine.configFile)
+	verbose := cmdLine.Flag("verbose", "Verbose mode.").Short('v').Bool()
+	configFile := cmdLine.Arg("config.file", "Omnis configuration file path").Default("omnis.json").String()
 
 	_, err := cmdLine.Parse(os.Args[1:])
 	if err != nil {
-		log.Fatal("Error parsing command line arguments : ", err)
+		log.Fatal("cmdLine.Parse failed <- ", err)
 	}
 
-	config, err := config.LoadConfig(cfgCmdLine.configFile)
+	// logger
+	log.SetFormatter(&nested.Formatter{
+		HideKeys: true,
+	})
+	log.SetOutput(os.Stderr)
+	if *verbose {
+		log.SetLevel(log.InfoLevel)
+	} else {
+		log.SetLevel(log.WarnLevel)
+	}
+
+	// config
+	err = config.LoadConfig(configFile)
 	if err != nil {
-		log.Error("ParseConfig failed :", err)
+		log.Warn("config.LoadConfig failed <- ", err)
 	}
+}
 
+func main() {
 	for true {
-		infos, err := client_informations.GetInformations(config.Client)
+		infos, err := client_informations.GetInformations()
 		if err != nil {
-			log.Error("GetInformation failed :", err)
+			log.Error("client_informations.GetInformation failed <- ", err)
 		}
 
-		err = net.SendInformations(config.Server, infos)
+		err = net.SendInformations(infos)
 		if err != nil {
-			log.Error("SendInformations failed :", err)
+			log.Error("net.SendInformations failed <- ", err)
 		}
 
-		d := time.Duration(config.Client.SendTime) * time.Second
-
-		time.Sleep(d)
+		time.Sleep(time.Duration(config.GetConfig().Client.SendTime) * time.Second)
 	}
 }

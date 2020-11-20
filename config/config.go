@@ -1,44 +1,62 @@
 package config
 
 import (
-	"io/ioutil"
+	"encoding/json"
 
-	"github.com/tidwall/gjson"
+	"fmt"
+	"io/ioutil"
+	"sync"
 )
 
 type ServerConfig struct {
-	Timeout    int64
-	ServerIP   string
-	ServerPort int64
-	TLS        bool
+	Timeout    int64  `json:"timeout"`
+	ServerIP   string `json:"server_ip"`
+	ServerPort int64  `json:"server_port"`
+	TLS        bool   `json:"tls"`
 }
 
 type ClientConfig struct {
-	Location  string
-	Perimeter string
-	SendTime  int64
+	Location  string `json:"location"`
+	Perimeter string `json:"perimeter"`
+	SendTime  int64  `json:"send_time"`
 }
 
 type Config struct {
-	Server *ServerConfig
-	Client *ClientConfig
+	Server *ServerConfig `json:"server"`
+	Client *ClientConfig `json:"client"`
 }
 
-func LoadConfig(configFile string) (*Config, error) {
-	json, err := ioutil.ReadFile(configFile)
+var lockConfig = &sync.Mutex{}
+var loadedConfig *Config = nil
+
+func LoadConfig(configFile *string) error {
+	lockConfig.Lock()
+	defer lockConfig.Unlock()
+	var loadedConfigTmp Config
+	jsonS, err := ioutil.ReadFile(*configFile)
 	if err != nil {
-		return nil, err
+		return fmt.Errorf("ioutil.ReadFile failed <- %v", err)
 	}
-	// Load database config
-	serverJSON := gjson.GetBytes(json, "server")
-	serverConf := ServerConfig{serverJSON.Get("timeout").Int(),
-		serverJSON.Get("server_ip").String(),
-		serverJSON.Get("server_port").Int(),
-		serverJSON.Get("tls").Bool()}
-	clientJSON := gjson.GetBytes(json, "client")
-	clientConf := ClientConfig{clientJSON.Get("location").String(),
-		clientJSON.Get("perimeter").String(),
-		clientJSON.Get("send_time").Int()}
-	conf := Config{&serverConf, &clientConf}
-	return &conf, nil
+
+	err = json.Unmarshal(jsonS, &loadedConfigTmp)
+	if err != nil {
+		return fmt.Errorf("json.Unmarshal failed <- %v", err)
+	}
+	loadedConfig = &loadedConfigTmp
+	return nil
+}
+
+func defaultConfig() *Config {
+	sc := ServerConfig{10, "127.0.0.1", 4320, false}
+	cc := ClientConfig{"default_network", "default_perimeter", 60}
+	return &Config{&sc, &cc}
+}
+
+func GetConfig() *Config {
+	lockConfig.Lock()
+	defer lockConfig.Unlock()
+	if loadedConfig == nil {
+		return defaultConfig()
+	}
+	return loadedConfig
 }

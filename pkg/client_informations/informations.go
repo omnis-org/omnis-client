@@ -1,7 +1,9 @@
 package client_informations
 
 import (
+	"fmt"
 	"net"
+
 	"github.com/omnis-org/omnis-client/config"
 	"github.com/omnis-org/omnis-client/internal/version"
 )
@@ -52,21 +54,21 @@ type Informations struct {
 	OtherInformations   *OtherInformations   `json:"other_informations"`
 }
 
-func GetInformations(clientConfig *config.ClientConfig) (*Informations, error) {
+func GetInformations() (*Informations, error) {
 
 	systemInformations, err := GetSystemInformations()
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("GetSystemInformations failed <- %v", err)
 	}
 
 	networkInformations, err := GetNetworkInformations()
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("GetNetworkInformations failed <- %v", err)
 	}
 
-	otherInformations := OtherInformations{clientConfig.Location, clientConfig.Perimeter, version.BuildVersion}
+	otherInformations := OtherInformations{config.GetConfig().Client.Location, config.GetConfig().Client.Perimeter, version.BuildVersion}
 
 	infos := Informations{systemInformations, networkInformations, &otherInformations}
 	return &infos, nil

@@ -1,6 +1,8 @@
 package client_informations
 
 import (
+	"fmt"
+
 	"github.com/shirou/gopsutil/host"
 )
 
@@ -9,7 +11,7 @@ func GetSystemInformations() (*SystemInformations, error) {
 	infos, err := host.Info()
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("host.Info <- %v", err)
 	}
 
 	operatingSystemInformations := OperatingSystemInformations{infos.OS,
