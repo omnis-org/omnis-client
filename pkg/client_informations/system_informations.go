@@ -29,6 +29,6 @@ func GetSystemInformations() (*SystemInformations, error) {
 
 	virtualizationInformations := VirtualizationInformations{isVirtualized, virtualizationSystem}
 
-	systemInfos := SystemInformations{operatingSystemInformations, virtualizationInformations, infos.Hostname, infos.HostID}
+	systemInfos := SystemInformations{&operatingSystemInformations, &virtualizationInformations, infos.Hostname, infos.HostID}
 	return &systemInfos, nil
 }

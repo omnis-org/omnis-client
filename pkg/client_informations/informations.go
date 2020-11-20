@@ -22,10 +22,10 @@ type VirtualizationInformations struct {
 }
 
 type SystemInformations struct {
-	OperatingSystem            OperatingSystemInformations `json:"operating_system"`
-	VirtualizationInformations VirtualizationInformations  `json:"virtualization"`
-	Hostname                   string                      `json:"hostname"`
-	SerialNumber               string                      `json:"serial_number"`
+	OperatingSystem            *OperatingSystemInformations `json:"operating_system"`
+	VirtualizationInformations *VirtualizationInformations  `json:"virtualization"`
+	Hostname                   string                       `json:"hostname"`
+	SerialNumber               string                       `json:"serial_number"`
 }
 
 type InterfaceInformations struct {
