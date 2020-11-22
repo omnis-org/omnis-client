@@ -5,7 +5,6 @@ import (
 	"net"
 
 	"github.com/omnis-org/omnis-client/config"
-	"github.com/omnis-org/omnis-client/internal/version"
 )
 
 type OperatingSystemInformations struct {
@@ -26,6 +25,7 @@ type SystemInformations struct {
 	VirtualizationInformations *VirtualizationInformations  `json:"virtualization"`
 	Hostname                   string                       `json:"hostname"`
 	SerialNumber               string                       `json:"serial_number"`
+	OmnisVersion               string                       `json:"omnis_version"`
 }
 
 type InterfaceInformations struct {
@@ -43,9 +43,8 @@ type NetworkInformations struct {
 }
 
 type OtherInformations struct {
-	Location     string `json:"location"`
-	Perimeter    string `json:"perimeter"`
-	OmnisVersion string `json:"omnis_version"`
+	Location  string `json:"location"`
+	Perimeter string `json:"perimeter"`
 }
 
 type Informations struct {
@@ -68,7 +67,7 @@ func GetInformations() (*Informations, error) {
 		return nil, fmt.Errorf("GetNetworkInformations failed <- %v", err)
 	}
 
-	otherInformations := OtherInformations{config.GetConfig().Client.Location, config.GetConfig().Client.Perimeter, version.BuildVersion}
+	otherInformations := OtherInformations{config.GetConfig().Client.Location, config.GetConfig().Client.Perimeter}
 
 	infos := Informations{systemInformations, networkInformations, &otherInformations}
 	return &infos, nil
