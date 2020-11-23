@@ -11,7 +11,6 @@ require (
 	github.com/shirou/gopsutil v3.20.10+incompatible
 	github.com/sirupsen/logrus v1.7.0
 	github.com/stretchr/testify v1.6.1 // indirect
-	github.com/tidwall/gjson v1.6.3
 	github.com/vishvananda/netlink v1.1.0
 	golang.org/x/sys v0.0.0-20201113233024-12cec1faf1ba // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
