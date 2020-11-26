@@ -39,7 +39,6 @@ type InterfaceInformations struct {
 
 type NetworkInformations struct {
 	Interfaces []InterfaceInformations `json:"interfaces"`
-	//OpenPorts  []int                   `json:"open_ports"`
 }
 
 type OtherInformations struct {

@@ -13,11 +13,11 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func SendInformations(infos *client_informations.Informations) error {
-	time := time.Duration(config.GetConfig().Server.Timeout) * time.Second
-	client := http.Client{Timeout: time}
+func SendInformations(clientInfos *client_informations.Informations) error {
+	timeout := time.Duration(config.GetConfig().Server.Timeout) * time.Second
+	client := http.Client{Timeout: timeout}
 
-	jsonInfos, err := json.Marshal(infos)
+	jsonClientInfos, err := json.Marshal(clientInfos)
 	if err != nil {
 		return fmt.Errorf("json.Marshal failed <- %v", err)
 	}
@@ -29,9 +29,9 @@ func SendInformations(infos *client_informations.Informations) error {
 
 	url := fmt.Sprintf("%s://%s:%d/api/informations", protocol, config.GetConfig().Server.ServerIP, config.GetConfig().Server.ServerPort)
 
-	log.Info("SendInformations : ", url, "\n", string(jsonInfos))
+	log.Info("SendInformations : ", url, "\n", string(jsonClientInfos))
 
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonInfos))
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonClientInfos))
 	if err != nil {
 		return fmt.Errorf("http.NewRequest failed <- %v", err)
 	}

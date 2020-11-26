@@ -10,27 +10,27 @@ import (
 
 func GetSystemInformations() (*SystemInformations, error) {
 
-	infos, err := host.Info()
+	hostInfos, err := host.Info()
 
 	if err != nil {
 		return nil, fmt.Errorf("host.Info <- %v", err)
 	}
 
-	operatingSystemInformations := OperatingSystemInformations{infos.OS,
-		infos.Platform,
-		infos.PlatformFamily,
-		infos.PlatformVersion,
-		infos.KernelVersion}
+	operatingSystemInformations := OperatingSystemInformations{hostInfos.OS,
+		hostInfos.Platform,
+		hostInfos.PlatformFamily,
+		hostInfos.PlatformVersion,
+		hostInfos.KernelVersion}
 
 	isVirtualized := false
 	virtualizationSystem := ""
-	if infos.VirtualizationRole == "guest" {
+	if hostInfos.VirtualizationRole == "guest" {
 		isVirtualized = true
-		virtualizationSystem = infos.VirtualizationSystem
+		virtualizationSystem = hostInfos.VirtualizationSystem
 	}
 
 	virtualizationInformations := VirtualizationInformations{isVirtualized, virtualizationSystem}
 
-	systemInfos := SystemInformations{&operatingSystemInformations, &virtualizationInformations, infos.Hostname, infos.HostID, version.BuildVersion}
+	systemInfos := SystemInformations{&operatingSystemInformations, &virtualizationInformations, hostInfos.Hostname, hostInfos.HostID, version.BuildVersion}
 	return &systemInfos, nil
 }

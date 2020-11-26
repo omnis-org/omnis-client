@@ -46,12 +46,14 @@ func init() {
 }
 
 func main() {
+	// TODO : REFACTOR BOUCLE INFINI
 	for true {
 		infos, err := client_informations.GetInformations()
 		if err != nil {
 			log.Error("client_informations.GetInformation failed <- ", err)
 		}
 
+		//TODO : DON'T SEND INFO IF SAME STRUCT INFOS - NEW FUNCTION EQUALS FOR STRUCT
 		err = net.SendInformations(infos)
 		if err != nil {
 			log.Error("net.SendInformations failed <- ", err)

@@ -32,13 +32,14 @@ var loadedConfig *Config = nil
 func LoadConfig(configFile *string) error {
 	lockConfig.Lock()
 	defer lockConfig.Unlock()
+	// TODO : Voir pour config en varible globale (bonne pratiques)
 	var loadedConfigTmp Config
-	jsonS, err := ioutil.ReadFile(*configFile)
+	fileContent, err := ioutil.ReadFile(*configFile)
 	if err != nil {
 		return fmt.Errorf("ioutil.ReadFile failed <- %v", err)
 	}
 
-	err = json.Unmarshal(jsonS, &loadedConfigTmp)
+	err = json.Unmarshal(fileContent, &loadedConfigTmp)
 	if err != nil {
 		return fmt.Errorf("json.Unmarshal failed <- %v", err)
 	}
@@ -46,6 +47,7 @@ func LoadConfig(configFile *string) error {
 	return nil
 }
 
+// TODO : A voir pour fichier json par default -- Default.json
 func defaultConfig() *Config {
 	sc := ServerConfig{10, "127.0.0.1", 4320, false}
 	cc := ClientConfig{"default_network", "default_perimeter", 60}
