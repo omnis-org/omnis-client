@@ -43,6 +43,8 @@ func init() {
 	if err != nil {
 		log.Warn("config.LoadConfig failed <- ", err)
 	}
+
+	net.InitDefaultTransport()
 }
 
 func main() {

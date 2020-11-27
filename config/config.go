@@ -9,10 +9,11 @@ import (
 )
 
 type ServerConfig struct {
-	Timeout    int64  `json:"timeout"`
-	ServerIP   string `json:"server_ip"`
-	ServerPort int64  `json:"server_port"`
-	TLS        bool   `json:"tls"`
+	Timeout            int64  `json:"timeout"`
+	ServerIP           string `json:"server_ip"`
+	ServerPort         int64  `json:"server_port"`
+	TLS                bool   `json:"tls"`
+	InsecureSkipVerify bool   `json:"insecure_skip_verify"`
 }
 
 type ClientConfig struct {
@@ -49,7 +50,7 @@ func LoadConfig(configFile *string) error {
 
 // TODO : A voir pour fichier json par default -- Default.json
 func defaultConfig() *Config {
-	sc := ServerConfig{10, "127.0.0.1", 4320, false}
+	sc := ServerConfig{10, "127.0.0.1", 4320, false, false}
 	cc := ClientConfig{"default_network", "default_perimeter", 60}
 	return &Config{&sc, &cc}
 }
