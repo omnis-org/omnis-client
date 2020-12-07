@@ -2,6 +2,7 @@ package net
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -12,6 +13,13 @@ import (
 
 	log "github.com/sirupsen/logrus"
 )
+
+func InitDefaultTransport() {
+	if config.GetConfig().Server.InsecureSkipVerify {
+		log.Warning("http : insecure skip verify")
+		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	}
+}
 
 func SendInformations(clientInfos *client_informations.Informations) error {
 	timeout := time.Duration(config.GetConfig().Server.Timeout) * time.Second
