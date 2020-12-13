@@ -35,7 +35,7 @@ func SendInformations(clientInfos *client_informations.Informations) error {
 		protocol = "https"
 	}
 
-	url := fmt.Sprintf("%s://%s:%d/api/informations", protocol, config.GetConfig().Server.ServerIP, config.GetConfig().Server.ServerPort)
+	url := fmt.Sprintf("%s://%s:%d/client/informations", protocol, config.GetConfig().Server.ServerIP, config.GetConfig().Server.ServerPort)
 
 	log.Info("SendInformations : ", url, "\n", string(jsonClientInfos))
 
