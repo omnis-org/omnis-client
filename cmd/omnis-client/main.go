@@ -20,6 +20,7 @@ func init() {
 	cmdLine.Version(version.BuildVersion)
 	cmdLine.HelpFlag.Short('h')
 	verbose := cmdLine.Flag("verbose", "Verbose mode.").Short('v').Bool()
+	debug := cmdLine.Flag("debug", "Debug mode.").Short('d').Bool()
 	configFile := cmdLine.Arg("config.file", "Omnis configuration file path").Default("omnis.json").String()
 
 	_, err := cmdLine.Parse(os.Args[1:])
@@ -34,6 +35,9 @@ func init() {
 	log.SetOutput(os.Stderr)
 	if *verbose {
 		log.SetLevel(log.InfoLevel)
+	} else if *debug {
+		log.SetLevel(log.DebugLevel)
+		log.SetReportCaller(true)
 	} else {
 		log.SetLevel(log.WarnLevel)
 	}
@@ -48,8 +52,8 @@ func init() {
 }
 
 func main() {
-	// TODO : REFACTOR BOUCLE INFINI
-	for true {
+
+	for {
 		infos, err := client_informations.GetInformations()
 		if err != nil {
 			log.Error("client_informations.GetInformation failed <- ", err)
