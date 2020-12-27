@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 
+	gateway "github.com/arthurguyader/go-gateway"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -42,7 +43,7 @@ func getInterfaceInformations() ([]InterfaceInformations, error) {
 				continue
 			}
 
-			gateways, err := getGateways(itf.Name)
+			gateways, err := gateway.GetGatewaysByInterface(&itf)
 			if err != nil {
 				log.Warn(err)
 			}
@@ -51,6 +52,7 @@ func getInterfaceInformations() ([]InterfaceInformations, error) {
 			interfaces = append(interfaces, InterfaceInformations{itf.Name,
 				ip.String(), maskN, itf.HardwareAddr.String(), gateways, itf.Flags})
 
+			break
 		}
 
 	}
