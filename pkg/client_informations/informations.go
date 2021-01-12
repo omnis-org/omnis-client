@@ -7,6 +7,10 @@ import (
 	"github.com/omnis-org/omnis-client/config"
 )
 
+/* This program contains the structural data of the gathered informations for later outputting
+It also gathers the machine network and system data into these structures
+*/
+
 type OperatingSystemInformations struct {
 	OS              string `json:"os"`
 	Platform        string `json:"platform"`

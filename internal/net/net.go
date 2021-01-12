@@ -14,6 +14,9 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+/* This program send the informations to the distant server
+ */
+
 func InitDefaultTransport() {
 	if config.GetConfig().Server.InsecureSkipVerify {
 		log.Warning("http : insecure skip verify")

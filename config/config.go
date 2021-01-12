@@ -8,6 +8,10 @@ import (
 	"sync"
 )
 
+/* This program contains the structures of data for the gathering of the machine information.
+It also setup the configuration for the gathering of data
+*/
+
 type ServerConfig struct {
 	Timeout            int64  `json:"timeout"`
 	ServerIP           string `json:"server_ip"`

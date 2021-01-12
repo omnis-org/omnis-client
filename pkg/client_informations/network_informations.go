@@ -8,6 +8,9 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+/* This program will return the network informations of the client machine
+ */
+
 func getInterfaceInformations() ([]InterfaceInformations, error) {
 	var interfaces []InterfaceInformations
 

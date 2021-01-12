@@ -15,7 +15,12 @@ import (
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 
+/* This program set up the command line flags / config / logging
+It also launch the main program which gathers the machine informations.
+*/
+
 func init() {
+	// Setting up command line and flags (kingpin)
 	cmdLine := kingpin.New(filepath.Base(os.Args[0]), "omnis-client")
 	cmdLine.Version(version.BuildVersion)
 	cmdLine.HelpFlag.Short('h')
@@ -28,7 +33,7 @@ func init() {
 		log.Fatal("cmdLine.Parse failed <- ", err)
 	}
 
-	// logger
+	// Setting up logging (logrus)
 	log.SetFormatter(&nested.Formatter{
 		HideKeys: true,
 	})
@@ -42,7 +47,7 @@ func init() {
 		log.SetLevel(log.WarnLevel)
 	}
 
-	// config
+	// Loading content of config file
 	err = config.LoadConfig(configFile)
 	if err != nil {
 		log.Warn("config.LoadConfig failed <- ", err)

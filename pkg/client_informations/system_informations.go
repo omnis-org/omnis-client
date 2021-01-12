@@ -8,6 +8,9 @@ import (
 	"github.com/shirou/gopsutil/host"
 )
 
+/* This program will return the system informations of the client machine
+ */
+
 func GetSystemInformations() (*SystemInformations, error) {
 
 	hostInfos, err := host.Info()
