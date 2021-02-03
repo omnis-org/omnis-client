@@ -37,8 +37,14 @@ type InterfaceInformations struct {
 	Flags    net.Flags `json:"flags"`
 }
 
+type PortsAndProcessesInformations struct {
+	Port    int    `json:"port"`
+	Process string `json:"process"`
+}
+
 type NetworkInformations struct {
-	Interfaces []InterfaceInformations `json:"interfaces"`
+	Interfaces        []InterfaceInformations         `json:"interfaces"`
+	PortsAndProcesses []PortsAndProcessesInformations `json:"portsprocesses"`
 }
 
 type OtherInformations struct {
