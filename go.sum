@@ -20,10 +20,8 @@ github.com/shirou/gopsutil v3.21.1+incompatible h1:2LwXWdbjXwyDgq26Yy/OT4xozlpms
 github.com/shirou/gopsutil v3.21.1+incompatible/go.mod h1:5b4v6he4MtMOwMlS0TUMTu2PcXUg8+E1lC7eC3UO/RA=
 github.com/sirupsen/logrus v1.7.0 h1:ShrD1U9pZB12TX0cVy0DtePoCH97K8EtX+mg7ZARUtM=
 github.com/sirupsen/logrus v1.7.0/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
-github.com/smolveau/openprocesses v0.0.0-20210203150535-1566bdabe470 h1:9QWLUwkGnKVemLhq9kbqo4PIzDY7D4RvLsnBax8UzQc=
-github.com/smolveau/openprocesses v0.0.0-20210203150535-1566bdabe470/go.mod h1:Lgj1u503lwdYaGx1TwME3+aX02ycumIKb6a9jMrbKrA=
-github.com/smolveau/openprocesses v0.0.0-20210203153030-26abf9842af3 h1:B1n5YIb71o49w3Im+Ap88fruWfP2r2nQ476dqCCPJHU=
-github.com/smolveau/openprocesses v0.0.0-20210203153030-26abf9842af3/go.mod h1:Lgj1u503lwdYaGx1TwME3+aX02ycumIKb6a9jMrbKrA=
+github.com/smolveau/openprocesses v0.0.0-20210203160242-cff1cf27475e h1:pxBYDvKgjXgAM8zYmssPA5Q0bhijGxqHx4zAhU20Ivw=
+github.com/smolveau/openprocesses v0.0.0-20210203160242-cff1cf27475e/go.mod h1:Lgj1u503lwdYaGx1TwME3+aX02ycumIKb6a9jMrbKrA=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
