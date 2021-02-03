@@ -11,7 +11,7 @@ require (
 	github.com/go-ole/go-ole v1.2.5 // indirect
 	github.com/shirou/gopsutil v3.21.1+incompatible
 	github.com/sirupsen/logrus v1.7.0
-	github.com/smolveau/openprocesses v0.0.0-20210203201535-38bafcc8bf8f
+	github.com/smolveau/openprocesses v0.0.0-20210203210515-34a79f8fb11a
 	github.com/stretchr/testify v1.6.1 // indirect
 	github.com/vishvananda/netns v0.0.0-20210104183010-2eb08e3e575f // indirect
 	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c // indirect
