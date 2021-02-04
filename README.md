@@ -13,7 +13,7 @@ OmnIS Client is part of the OmnIS project. It allows the transfer of information
 
 ```bash
 cd build
-./build_client.sh
+make build
 # That will generate a binary omnis-client
 ```
 
