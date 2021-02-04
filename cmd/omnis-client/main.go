@@ -1,8 +1,6 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"os"
 	"path/filepath"
 	"time"
@@ -60,19 +58,14 @@ func main() {
 		if err != nil {
 			log.Error("client_informations.GetInformation failed <- ", err)
 		}
-		//MarshalIndent
-		empJSON, err := json.MarshalIndent(infos, "", "  ")
-		if err != nil {
-			log.Fatalf(err.Error())
-		}
-		fmt.Printf("Marshal funnction output %s\n", string(empJSON))
+
 		//TODO : DON'T SEND INFO IF SAME STRUCT INFOS - NEW FUNCTION EQUALS FOR STRUCT
-		/*
-			err = net.SendInformations(infos)
-			if err != nil {
-				log.Error("net.SendInformations failed <- ", err)
-			}*/
-		os.Exit(0)
+
+		err = net.SendInformations(infos)
+		if err != nil {
+			log.Error("net.SendInformations failed <- ", err)
+		}
+
 		time.Sleep(time.Duration(config.GetConfig().Client.SendTime) * time.Second)
 	}
 }
