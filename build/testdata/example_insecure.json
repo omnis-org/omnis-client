@@ -1,15 +1,16 @@
 {
     "server" : {
         "timeout" : 5,
-        "server_ip" : "127.0.0.1",
-        "server_port" : 4320,
+        "serverIp" : "127.0.0.1",
+        "serverPort" : 4320,
+        "clientPath": "/api/client",
         "tls": true,
-        "insecure_skip_verify": true
+        "insecureSkipVerify": true
     },
     "client" : {
         "location" : "Paris",
         "perimeter" : "Network1",
-        "send_time" : 60
+        "sendTime" : 60
     }
 
 }

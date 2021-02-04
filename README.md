@@ -27,15 +27,15 @@ You have examples of configuration file in build/testdata/example.json :
 {
     "server" : {
         "timeout" : 5,                  # Max time before stop send informations
-        "server_ip" : "127.0.0.1",      # The IP address of the omnis server service
-        "server_port" : 4320,           # The port of the omnis server service
+        "serverIp" : "127.0.0.1",      # The IP address of the omnis server service
+        "serverPort" : 4320,           # The port of the omnis server service
         "tls": true,                    # Is TLS activated ?
-        "insecure_skip_verify": false   # Check if certificate is valid
+        "insecureSkipVerify": false   # Check if certificate is valid
     },
     "client" : {
         "location" : "Paris",           # The location of the client (physical place)
         "perimeter" : "Network1",       # The perimeter of the client (virtual place)
-        "send_time" : 60                # The time between each sending of information
+        "sendTime" : 60                # The time between each sending of information
     }
 
 }

@@ -10,16 +10,17 @@ import (
 
 type ServerConfig struct {
 	Timeout            int64  `json:"timeout"`
-	ServerIP           string `json:"server_ip"`
-	ServerPort         int64  `json:"server_port"`
+	ServerIP           string `json:"serverIp"`
+	ServerPort         int64  `json:"serverPort"`
+	ClientPath         string `json:"clientPath"`
 	TLS                bool   `json:"tls"`
-	InsecureSkipVerify bool   `json:"insecure_skip_verify"`
+	InsecureSkipVerify bool   `json:"insecureSkipVerify"`
 }
 
 type ClientConfig struct {
 	Location  string `json:"location"`
 	Perimeter string `json:"perimeter"`
-	SendTime  int64  `json:"send_time"`
+	SendTime  int64  `json:"sendTime"`
 }
 
 type Config struct {
@@ -50,7 +51,7 @@ func LoadConfig(configFile *string) error {
 
 // TODO : A voir pour fichier json par default -- Default.json
 func defaultConfig() *Config {
-	sc := ServerConfig{10, "127.0.0.1", 4320, false, false}
+	sc := ServerConfig{10, "127.0.0.1", 4320, "/api/client", false, false}
 	cc := ClientConfig{"default_network", "default_perimeter", 60}
 	return &Config{&sc, &cc}
 }
