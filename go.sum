@@ -24,6 +24,8 @@ github.com/smolveau/openprocesses v0.0.0-20210204092441-0ab80bf8bc5a h1:HH5hJiHI
 github.com/smolveau/openprocesses v0.0.0-20210204092441-0ab80bf8bc5a/go.mod h1:Lgj1u503lwdYaGx1TwME3+aX02ycumIKb6a9jMrbKrA=
 github.com/smolveau/openprocesses v0.0.0-20210204092605-93573e9afbf6 h1:qJB9ro0AEFK3OYqWYFvNehLs6+bNsUfDN5ZgTq9N3Oc=
 github.com/smolveau/openprocesses v0.0.0-20210204092605-93573e9afbf6/go.mod h1:Lgj1u503lwdYaGx1TwME3+aX02ycumIKb6a9jMrbKrA=
+github.com/smolveau/openprocesses v0.0.0-20210204093321-b73580a8ae48 h1:Yg25GRi2JkqQVnnuu8VZQphVUg40MGgkUxkYvtkhzYQ=
+github.com/smolveau/openprocesses v0.0.0-20210204093321-b73580a8ae48/go.mod h1:Lgj1u503lwdYaGx1TwME3+aX02ycumIKb6a9jMrbKrA=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
