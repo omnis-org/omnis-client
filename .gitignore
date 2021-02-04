@@ -16,5 +16,5 @@
 
 .vscode
 
-build/omnis-client
-build/omnis-client.exe
+build/omnis-client*
+internal/version/version.go
