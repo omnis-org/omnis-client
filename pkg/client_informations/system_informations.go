@@ -3,6 +3,7 @@ package client_informations
 import (
 	"fmt"
 
+	"github.com/omnis-org/omnis-client/config"
 	"github.com/omnis-org/omnis-client/internal/version"
 
 	"github.com/shirou/gopsutil/host"
@@ -31,6 +32,6 @@ func GetSystemInformations() (*SystemInformations, error) {
 
 	virtualizationInformations := VirtualizationInformations{isVirtualized, virtualizationSystem}
 
-	systemInfos := SystemInformations{&operatingSystemInformations, &virtualizationInformations, hostInfos.Hostname, hostInfos.HostID, version.BuildVersion}
+	systemInfos := SystemInformations{&operatingSystemInformations, &virtualizationInformations, hostInfos.Hostname, hostInfos.HostID, config.GetConfig().Server.UUID, version.BuildVersion}
 	return &systemInfos, nil
 }

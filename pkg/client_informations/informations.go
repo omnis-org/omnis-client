@@ -25,6 +25,7 @@ type SystemInformations struct {
 	VirtualizationInformations *VirtualizationInformations  `json:"virtualization"`
 	Hostname                   string                       `json:"hostname"`
 	SerialNumber               string                       `json:"serial_number"`
+	UUID                       string                       `json:"uuid"`
 	OmnisVersion               string                       `json:"omnis_version"`
 }
 

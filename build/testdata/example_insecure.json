@@ -4,6 +4,7 @@
         "serverIp" : "127.0.0.1",
         "serverPort" : 4320,
         "clientPath": "/api/client",
+        "uuid": "",
         "tls": true,
         "insecureSkipVerify": true
     },
