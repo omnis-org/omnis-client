@@ -6,6 +6,7 @@ import (
 
 	gateway "github.com/arthurguyader/go-gateway"
 	log "github.com/sirupsen/logrus"
+	openprocesses "github.com/smolveau/openprocesses"
 )
 
 func getInterfaceInformations() ([]InterfaceInformations, error) {
@@ -59,13 +60,30 @@ func getInterfaceInformations() ([]InterfaceInformations, error) {
 	return interfaces, nil
 }
 
+func getPortsAndProcesses() ([]PortsAndProcessesInformations, error) {
+	var out []PortsAndProcessesInformations
+	tmp, err := openprocesses.GetListeningSockets()
+	if err != nil {
+		return nil, fmt.Errorf("portsandprocess.GetListeningSockets() failed <- %v", err)
+	}
+	for i := 0; i < len(tmp); i++ {
+		o := PortsAndProcessesInformations{Port: tmp[i].Port, Process: tmp[i].Process}
+		out = append(out, o)
+	}
+	return out, nil
+}
+
 func GetNetworkInformations() (*NetworkInformations, error) {
 	interfaces, err := getInterfaceInformations()
 	if err != nil {
 		return nil, fmt.Errorf("getInterfaceInformations failed <- %v", err)
 	}
+	portsAndProcesses, err := getPortsAndProcesses()
+	if err != nil {
+		return nil, fmt.Errorf("getPortsAndProcesses failed <- %v", err)
+	}
 
-	networkInformations := NetworkInformations{interfaces}
+	networkInformations := NetworkInformations{interfaces, portsAndProcesses}
 
 	return &networkInformations, nil
 }

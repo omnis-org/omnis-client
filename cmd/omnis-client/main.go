@@ -60,6 +60,7 @@ func main() {
 		}
 
 		//TODO : DON'T SEND INFO IF SAME STRUCT INFOS - NEW FUNCTION EQUALS FOR STRUCT
+
 		err = net.SendInformations(infos)
 		if err != nil {
 			log.Error("net.SendInformations failed <- ", err)
