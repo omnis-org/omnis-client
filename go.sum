@@ -4,8 +4,8 @@ github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 h1:JYp7IbQjafo
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d h1:UQZhZ2O0vMHr2cI+DC1Mbh0TJxzA3RcLoMsFw+aXw7E=
 github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d/go.mod h1:rBZYJk541a8SKzHPHnH3zbiI+7dagKZ0cgpgrD7Fyho=
-github.com/antonfisher/nested-logrus-formatter v1.3.0 h1:8zixYquU1Odk+vzAaAQPAdRh1ZjmUXNQ1T+dUBvlhVo=
-github.com/antonfisher/nested-logrus-formatter v1.3.0/go.mod h1:6WTfyWFkBc9+zyBaKIqRrg/KwMqBbodBjgbHjDz7zjA=
+github.com/antonfisher/nested-logrus-formatter v1.3.1 h1:NFJIr+pzwv5QLHTPyKz9UMEoHck02Q9L0FP13b/xSbQ=
+github.com/antonfisher/nested-logrus-formatter v1.3.1/go.mod h1:6WTfyWFkBc9+zyBaKIqRrg/KwMqBbodBjgbHjDz7zjA=
 github.com/arthurguyader/go-gateway v0.0.0-20201216232647-3c6ae95fe515 h1:Rg/kldYor+gqZvoa8U7ITvr5AanxQtAoe+Riy7hKaSA=
 github.com/arthurguyader/go-gateway v0.0.0-20201216232647-3c6ae95fe515/go.mod h1:zE5ai7Kscz+4WlerrbNLOR0QZYITMk8YE4nXdwQw+S4=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=

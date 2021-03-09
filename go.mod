@@ -6,7 +6,7 @@ require (
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
-	github.com/antonfisher/nested-logrus-formatter v1.3.0
+	github.com/antonfisher/nested-logrus-formatter v1.3.1
 	github.com/arthurguyader/go-gateway v0.0.0-20201216232647-3c6ae95fe515
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/google/uuid v1.2.0
